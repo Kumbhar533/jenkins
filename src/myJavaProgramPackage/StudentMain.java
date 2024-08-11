@@ -1,5 +1,6 @@
 package myJavaProgramPackage;
 
+import java.util.Date;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -42,6 +43,8 @@ public class StudentMain {
 
 		} catch (Exception e) {
 			e.getMessage();
+		} finally {
+			System.out.println(new Date());
 		}
 
 	}
