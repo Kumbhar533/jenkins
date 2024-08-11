@@ -6,45 +6,101 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-public class StudentMain {
+class Student {
 
-	public static void main(String[] args) {
+	private UUID id;
 
-		System.out.println("This is  main class");
+	private String name;
 
-		ExecutorService executorService = Executors.newSingleThreadExecutor();
+	private String collegeName;
 
-		Callable<Student> call = () -> {
+	private Long fees;
 
-			Student student = new Student(UUID.randomUUID(), "Nilesh", "Willingdon college", 15986l);
-			Thread.sleep(1000);
-			return student;
+	public UUID getId() {
+		return id;
+	}
 
-		};
+	public void setId(UUID id) {
+		this.id = id;
+	}
 
-		Future<Student> future = executorService.submit(call);
+	public String getName() {
+		return name;
+	}
 
-		boolean task = true;
-		try {
+	public void setName(String name) {
+		this.name = name;
+	}
 
-			while (task) {
+	public String getCollegeName() {
+		return collegeName;
+	}
 
-				if (future.isDone()) {
-					Student student = future.get();
-					task = false;
-					System.out.println(student);
-					System.out.println("Task done");
+	public void setCollegeName(String collegeName) {
+		this.collegeName = collegeName;
+	}
 
-				} else {
-					System.out.println("Waiting for comletion");
+	public Long getFees() {
+		return fees;
+	}
+
+	public void setFees(Long fees) {
+		this.fees = fees;
+	}
+
+	public Student(UUID id, String name, String collegeName, Long fees) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.collegeName = collegeName;
+		this.fees = fees;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [id=" + id + ", name=" + name + ", collegeName=" + collegeName + ", fees=" + fees + "]";
+	}
+
+	public class StudentMain {
+
+		public static void main(String[] args) {
+
+			System.out.println("This is  main class");
+
+			ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+			Callable<Student> call = () -> {
+
+				Student student = new Student(UUID.randomUUID(), "Nilesh", "Willingdon college", 15986l);
+				Thread.sleep(1000);
+				return student;
+
+			};
+
+			Future<Student> future = executorService.submit(call);
+
+			boolean task = true;
+			try {
+
+				while (task) {
+
+					if (future.isDone()) {
+						Student student = future.get();
+						task = false;
+						System.out.println(student);
+						System.out.println("Task done");
+
+					} else {
+						System.out.println("Waiting for comletion");
+					}
+
 				}
 
+			} catch (Exception e) {
+				e.getMessage();
 			}
 
-		} catch (Exception e) {
-			e.getMessage();
 		}
 
 	}
-
 }
